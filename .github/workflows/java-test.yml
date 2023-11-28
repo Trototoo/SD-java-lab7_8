@@ -1,0 +1,38 @@
+name: Java Test on Push and Pull Request
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set execute permission on Gradle wrapper script
+        run: |
+          chmod +x ./gradlew
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build with Gradle
+        run: |
+          ./gradlew build
+
+      - name: Run Tests
+        run: |
+          ./gradlew test
+
+      - name: Publish test results
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+          include_passed: 'true'
+          detailed_summary: 'true'
+          summary: 'true'
