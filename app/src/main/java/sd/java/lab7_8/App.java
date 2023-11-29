@@ -4,6 +4,8 @@ import sd.java.lab7_8.flowers.FreshFlower;
 import sd.java.lab7_8.flowers.MediumFreshFlower;
 import sd.java.lab7_8.flowers.NotSoFreshFlower;
 
+import java.util.ArrayList;
+
 public class App {
 
     public static void main(String[] args) {

@@ -2,16 +2,16 @@ package sd.java.lab7_8.flowers;
 
 public abstract class Flower {
     private String color;
-    private double length;
-    private int freshness;
+    private int length;
+    private final int freshness;
 
-    public Flower(String color, double length, int freshness) {
+    public Flower(String color, int length, int freshness) {
         setColor(color);
         setLength(length);
-        setFreshness(freshness);
+        this.freshness = freshness;
     }
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
@@ -32,7 +32,7 @@ public abstract class Flower {
         this.color = color;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         // Check if length is greater than 0
         if (length <= 0) {
             throw new IllegalArgumentException("Length must be greater than 0.");
@@ -41,11 +41,7 @@ public abstract class Flower {
         this.length = length;
     }
 
-    public void setFreshness(int freshness) {
-        this.freshness = freshness;
-    }
-
-    public double calculateCost() {
+    public int calculateCost() {
         return getLength() * getFreshness();
     }
 

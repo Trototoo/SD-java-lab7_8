@@ -2,39 +2,40 @@ package sd.java.lab7_8;
 
 import sd.java.lab7_8.flowers.Flower;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class Bouquet {
-    private final List<Flower> flowers;
+    private final CustomList<Flower> flowers;
     private final Accessory accessory;
-    private double value; // Total value of the bouquet
+    private int value; // Total value of the bouquet
 
     public Bouquet(Accessory accessory) {
-        this.flowers = new ArrayList<>();
+        this.flowers = new CustomList<>();
         this.accessory = accessory;
         this.value = accessory.getPrice();
     }
 
     public void addFlower(Flower flower) {
+        if (flower == null) {
+            throw new NullPointerException("Flower cannot be null.");
+        }
         flowers.add(flower);
         value += flower.calculateCost(); // Update the total value when adding a flower
     }
 
-    public void addFlowerList(List<Flower> flowerList) {
+    public void addFlowerList(CustomList<Flower> flowerList) {
         flowers.addAll(flowerList);
         for (Flower flower : flowerList) {
             value += flower.calculateCost(); // Update the total value for each added flower
         }
     }
 
-    public List<Flower> getFlowers() {
-        return new ArrayList<>(flowers);
+    public CustomList<Flower> getFlowers() {
+        return new CustomList<>(flowers);
     }
 
-    public List<Flower> getListOfFlowersSortedByFreshness() {
-        List<Flower> sortedBouquet = new ArrayList<>(flowers);
+    public CustomList<Flower> getListOfFlowersSortedByFreshness() {
+        CustomList<Flower> sortedBouquet = new CustomList<>(flowers);
         sortedBouquet.sort(Comparator.comparingInt(Flower::getFreshness));
         return sortedBouquet;
     }
@@ -45,9 +46,9 @@ public class Bouquet {
         return sortedBouquet;
     }
 
-    public Flower getFirstFlowerInLengthRange(double minLength, double maxLength) {
+    public Flower getFirstFlowerInLengthRange(int minLength, int maxLength) {
         for (Flower flower : flowers) {
-            double flowerLength = flower.getLength();
+            int flowerLength = flower.getLength();
             if (flowerLength >= minLength && flowerLength <= maxLength) {
                 return flower;
             }
